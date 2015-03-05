@@ -39,6 +39,9 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', function($scope,$
                 for (index = 0; index < $scope.beers.length+1; ++index) {
                     $scope.beers[index].selected = "";
                 }
+                $scope.nbbrew = 0;
+                $scope.ratebrew = 0;
+                $scope.submitButtonLogin = "blue";
             })
             .error(function (response){console.log('error logout');});
     };
@@ -52,6 +55,8 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', function($scope,$
             .success(function(response) {
                 $scope.brew = response;
                 console.log('brew list ok');
+                $scope.nbbrew = 0;
+                $scope.ratebrew = 0;
                 var index;
                 var jndex;
                 for (index = 0; index < $scope.beers.length; index++) {
@@ -188,8 +193,10 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', function($scope,$
                             $scope.submitButtonSignup = "green";
                             $scope.resultSignupMessage = "";
                             $scope.result='msgsuccess';
+                            $scope.drunkards.push($scope.signupData.pseudo);
                             $scope.signupData="";
                             $scope.signUpSuccess = true;
+                            $scope.loginSuccess = false;
                             $scope.carte = true;
                             $scope.newbeer = false;
                             $scope.stat = false;
@@ -239,11 +246,12 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', function($scope,$
                         console.log(data.message);
                         if (data.success) { //success comes from the return json object
                             console.log("success");
-                            $scope.submitButtonLogin = "green";
+                            $scope.submitButtonLogin = "blue";
                             $scope.resultLoginMessage = "";
                             $scope.result='msgsuccess';
                             $scope.loginData="";
                             $scope.loginSuccess = true;
+                            $scope.signUpSuccess = false;
                             $scope.userLoggedIn = true;
                             $scope.listAllChecked();
                             $scope.userLogId = tempseudo;
