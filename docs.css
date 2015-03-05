@@ -1,0 +1,88 @@
+
+/*******************************
+             Global
+*******************************/
+
+body  {
+  background-color: #F7F7F7;
+}
+.fullheight {
+  height: 100%;
+}
+.container{
+  margin-left: 134px;
+  margin-right: 50px;
+  padding: 28px 28px 28px 28px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
+  border-left: 1px solid #DDDDDD;
+  border-right: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  border-top: 1px solid #DDDDDD;
+}
+#logo{
+  background-image : url(LeTrappist-logo-bis.png);
+  background-size: 264px 100px;
+  background-repeat: no-repeat;
+  height: 100px;
+  width: 264px;
+  margin-left: 134px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+#logo:hover{
+  background-image : url(LeTrappist-logo-hover-bis.png);
+}
+.description {
+  display: inline;
+  text-align: left;
+  margin-left: -65px;
+}
+.price {
+  display: inline;
+  float: right;
+}
+.header {
+  padding-bottom: 5px;
+}
+.beername, .beercountry, .beeralcool, .beercdmt, .beertype, .drunk, .notdrunk, .sign.out {
+    cursor: pointer;
+}
+.drunk {
+  display: inline;
+  float: right;
+  color: #5bbd72;
+  font-size: 0.8em;
+}
+.notdrunk {
+  display: inline;
+  float: right;
+  font-size: 0.8em;
+}
+.notdrunk:hover {
+  color: #5bbd72;
+}
+.alcool {
+  display: inline;
+  margin-left: 20px;
+  font-weight: bold;
+}
+.signlog {
+  display: inline;
+  float: right;
+}
+.currentstate {
+    width: 350px;
+    display: inline;
+    float: right;
+}
+.sign.out:hover {
+    color: #ac1300;
+}
+.statable {
+    width: 100%;
+}
+.statcol {
+    width: 33%;
+}

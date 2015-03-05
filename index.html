@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Le Trappist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="favicon.png" rel="shortcut icon"/>
+    <link rel="stylesheet" type="text/css" href="semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <script src="jquery.min.js"></script>
+    <script src="semantic.min.js"></script>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="chimayBottle.js"></script>
+</head>
+<body>
+<div class="fullheight" data-ng-app="myApp" data-ng-controller="trappeBarrel">
+    <div class="ui left vertical inverted labeled icon sidebar menu visible">
+        <a ng-class="carteclass" data-ng-click="gocarte()">
+            <i class="book icon"></i>
+            Carte
+        </a>
+        <a ng-class="newbeerclass" data-ng-click="gonewbeer()">
+            <i class="plus icon"></i>
+            Ajouter
+        </a>
+        <a ng-class="statclass" data-ng-click="gostat()">
+            <i class="user icon"></i>
+            Compte
+        </a>
+    </div>
+    <div class="currentstate" data-ng-show="userLoggedIn">
+        <div class="ui icon message">
+            <i class="sign out icon" data-ng-click="logout()"></i>
+            <div class="content">
+                <div class="header">
+                    Hi {{userLogId}}!
+                </div>
+                <p>You're sober. You only drank <b>{{nbbrew}}</b> beers.</p>
+            </div>
+        </div>
+    </div>
+    <div id="logo" data-ng-click="gocarte()"></div>
+    <div class="main container" data-ng-show="carte">
+        <h4 class="ui horizontal header divider">
+            La Carte
+        </h4>
+        <div class="ui success message" data-ng-show="signUpSuccess">
+            <i class="close icon"></i>
+            <div class="header">
+                Bravo!
+            </div>
+            <p>Nouvel utilisateur ajouté avec succés.</p>
+        </div>
+        <div class="ui success message" data-ng-show="loginSuccess">
+            <i class="close icon"></i>
+            <div class="header">
+                Bravo!
+            </div>
+            <p>Identifié avec succés.</p>
+        </div>
+        <div class="ui one cards">
+            <div class="{{beer.selected}} card" data-ng-repeat="beer in beers">
+                <div class="content">
+                    <div class="header"><i class="{{beer.Pays}} flag beercountry" data-ng-click="reverse=!reverse;order('Pays', reverse)"></i> <span class="beername" data-ng-click="reverse=!reverse;order('Nom', reverse)">{{beer.Nom}}</span>
+                        <span data-ng-show="userLoggedIn">
+                            <div class="drunk" ng-show="beer.selected" data-ng-click="select(beer)">
+                                <i class="bar icon"></i> Drunk!
+                            </div>
+                            <div class="notdrunk" ng-show="!beer.selected" data-ng-click="select(beer)">
+                                <i class="large check icon" ng-class="{loading: hover}" ng-mouseenter="hover = true"
+                                   ng-mouseleave="hover = false"></i>
+                            </div>
+                        </span>
+                    </div>
+                    <a class="ui black right ribbon label" data-ng-click="reverse=!reverse;order('Robe', reverse)"><i
+                            class="theme icon"></i>{{beer.Robe}}</a>
+
+                    <div class="description">
+                        <span class="beertype" data-ng-click="reverse=!reverse;order('Type', reverse)">{{beer.Type}}</span>
+                        <div class="alcool"><span class="beeralcool" data-ng-click="reverse=!reverse;order('Alcool', reverse)"><i class="filter icon"></i>{{beer.Alcool}}°</span> &nbsp;<span class="beercdmt" data-ng-click="reverse=!reverse;order('Conditionnement', reverse)"><i
+                                class="cocktail icon"></i>{{beer.Conditionnement}}cl</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="extra">
+                    <div class="ui tiny buttons">
+                        <div class="ui orange button" data-ng-click="reverse=!reverse;order('RBnote', reverse)">
+                            {{beer.RBnote}}
+                        </div>
+                        <div class="or" data-text="RB"></div>
+                        <div class="ui red button" data-ng-click="reverse=!reverse;order('RBstyle', reverse)">
+                            {{beer.RBstyle}}
+                        </div>
+                    </div>
+                    <div class="ui tiny buttons">
+                        <div class="ui blue button" data-ng-click="reverse=!reverse;order('BAnote', reverse)">
+                            {{beer.BAnote}}
+                        </div>
+                        <div class="or" data-text="BA"></div>
+                        <div class="ui purple button" data-ng-click="reverse=!reverse;order('BAbro', reverse)">
+                            {{beer.BAbro}}
+                        </div>
+                    </div>
+                    <div class="price"><a class="ui tag label"
+                                          data-ng-click="reverse=!reverse;order('PrixBelge', reverse)">{{beer.PrixBelge}}
+                        €</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main container" data-ng-show="newbeer">
+        <h4 class="ui horizontal header divider">
+            Ajouter une nouvelle bière
+        </h4>
+
+        <form class="ui form">
+            <div class="two fields">
+                <div class="field">
+                    <label>Nom</label>
+
+                    <div class="field">
+                        <input type="text" name="first-name" placeholder="Nom de la bière">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Type</label>
+
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="type">
+
+                        <div class="default text">Type</div>
+                        <i class="dropdown icon"></i>
+
+                        <div class="menu">
+                            <div class="item" data-value="Stout">Stout</div>
+                            <div class="item" data-value="Lager">Lager</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <label>Alcool</label>
+
+                    <div class="field">
+                        <input type="text" name="first-name" placeholder="Degré d'alcool">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Robe</label>
+
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="robe">
+
+                        <div class="default text">Robe</div>
+                        <i class="dropdown icon"></i>
+
+                        <div class="menu">
+                            <div class="item" data-value="Brune">Brune</div>
+                            <div class="item" data-value="Rubi">Rubi</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Origine</label>
+
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="pays">
+
+                        <div class="default text">Pays</div>
+                        <i class="dropdown icon"></i>
+
+                        <div class="menu">
+                            <div class="item" data-value="Belgique">Belgique</div>
+                            <div class="item" data-value="Allemagne">Allemagne</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Tarif</label>
+
+                    <div class="field">
+                        <div class="ui icon input">
+                            <input type="text" name="prix" placeholder="Prix apéro belge">
+                            <i class="euro icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Conditionnement</label>
+
+                    <div class="field">
+                        <input type="text" name="cdmt" placeholder="Conditionnement">
+                    </div>
+                </div>
+            </div>
+            <div class="ui submit green basic button">Ajouter</div>
+        </form>
+    </div>
+    <div class="main container" data-ng-show="stat">
+        <h4 class="ui horizontal header divider">
+            Utilisateur
+        </h4>
+        <div data-ng-show="!userLoggedIn">
+            <div class="ui warning message" data-ng-show="resultLoginMessage">
+                <div class="header">Attention</div>
+                <p>{{resultLoginMessage}}.</p>
+            </div>
+            <div class="html ui top attached segment" data-ng-show="stat">
+                <div class="ui two column middle aligned relaxed fitted stackable grid">
+                    <div class="column">
+                        <div class="ui form segment">
+                            <form class="ui form login" ng-submit="submitLogin(loginform)" name="loginform" method="post" action="">
+                                <div class="field">
+                                    <label>Nom d'utilisateur</label>
+                                    <div class="ui left icon input">
+                                        <input type="text" placeholder="Pseudo" data-ng-model="loginData.pseudo" name="pseudo">
+                                        <i class="user icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Mot de passe</label>
+                                    <div class="ui left icon input">
+                                        <input type="password" data-ng-model="loginData.password" name="password">
+                                        <i class="lock icon"></i>
+                                    </div>
+                                </div>
+                                <button class="ui {{submitButtonLogin}} button" type="submit">S'authentifier</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="ui vertical divider">
+                        Or
+                    </div>
+                    <div class="center aligned column">
+                        <div class="huge green ui labeled icon button" data-ng-click="gosignup()">
+                            <i class="signup icon"></i>
+                            S'enregistrer
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="userLoggedIn">
+            <div class="ui statistics">
+                <table class="statable">
+                    <tr>
+                        <td class="statcol">
+                            <div class="statistic">
+                                <div class="value">
+                                    {{beers.length}}
+                                </div>
+                                <div class="label">
+                                    Bières disponibles
+                                </div>
+                            </div>
+                        </td>
+                        <td class="statcol">
+                            <div class="statistic">
+                                <div class="value">
+                                    {{nbbrew}}
+                                </div>
+                                <div class="label">
+                                    Bières consommées
+                                </div>
+                            </div>
+                        </td>
+                        <td class="statcol">
+                            <div class="statistic">
+                                <div class="value">
+                                    {{beers.length-nbbrew}}
+                                </div>
+                                <div class="label">
+                                    Bières non consommées
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="ui indicating progress" id="conso">
+                <div class="bar"></div>
+                <div class="label">{{ratebrew}}% Consommé</div>
+            </div>
+            <div class="ui one cards">
+                <div class="green card" data-ng-repeat="beer in beers | filter:{ selected: 'green' }">
+                    <div class="content">
+                        <div class="header"><i class="{{beer.Pays}} flag beercountry" data-ng-click="reverse=!reverse;order('Pays', reverse)"></i> <span class="beername" data-ng-click="reverse=!reverse;order('Nom', reverse)">{{beer.Nom}}</span>
+                            <div class="drunk" ng-show="beer.selected" data-ng-click="select(beer)">
+                                <i class="bar icon"></i> Drunk!
+                            </div>
+                            <div class="notdrunk" ng-show="!beer.selected" data-ng-click="select(beer)">
+                                <i class="large check icon" ng-class="{loading: hover}" ng-mouseenter="hover = true"
+                                   ng-mouseleave="hover = false"></i>
+                            </div>
+                        </div>
+                        <a class="ui black right ribbon label" data-ng-click="reverse=!reverse;order('Robe', reverse)"><i
+                                class="theme icon"></i>{{beer.Robe}}</a>
+                        <div class="description">
+                            <span class="beertype" data-ng-click="reverse=!reverse;order('Type', reverse)">{{beer.Type}}</span>
+                            <div class="alcool"><span class="beeralcool" data-ng-click="reverse=!reverse;order('Alcool', reverse)"><i class="filter icon"></i>{{beer.Alcool}}°</span> &nbsp;<span class="beercdmt" data-ng-click="reverse=!reverse;order('Conditionnement', reverse)"><i
+                                    class="cocktail icon"></i>{{beer.Conditionnement}}cl</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="extra">
+                        <div class="ui tiny buttons">
+                            <div class="ui orange button" data-ng-click="reverse=!reverse;order('RBnote', reverse)">
+                                {{beer.RBnote}}
+                            </div>
+                            <div class="or" data-text="RB"></div>
+                            <div class="ui red button" data-ng-click="reverse=!reverse;order('RBstyle', reverse)">
+                                {{beer.RBstyle}}
+                            </div>
+                        </div>
+                        <div class="ui tiny buttons">
+                            <div class="ui blue button" data-ng-click="reverse=!reverse;order('BAnote', reverse)">
+                                {{beer.BAnote}}
+                            </div>
+                            <div class="or" data-text="BA"></div>
+                            <div class="ui purple button" data-ng-click="reverse=!reverse;order('BAbro', reverse)">
+                                {{beer.BAbro}}
+                            </div>
+                        </div>
+                        <div class="price"><a class="ui tag label"
+                                              data-ng-click="reverse=!reverse;order('PrixBelge', reverse)">{{beer.PrixBelge}}
+                            €</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main container"  data-ng-show="signup">
+        <h4 class="ui horizontal header divider">
+            S'enregistrer
+        </h4>
+        <div class="ui warning message" data-ng-show="resultSignupMessage">
+            <div class="header">Attention</div>
+            <p>{{resultSignupMessage}}</p>
+        </div>
+        <form class="ui form signup" ng-submit="submitSignup(signupform)" name="signupform" method="post" action="">
+            <div class="two fields">
+                <div class="required field">
+                    <label>Nom d'utilisateur</label>
+                    <div class="ui icon input">
+                        <input type="text" placeholder="Pseudo" data-ng-model="signupData.pseudo" name="pseudo">
+                        <i class="user icon"></i>
+                    </div>
+                </div>
+                <div class="required field">
+                    <label>Mot de passe</label>
+                    <div class="ui icon input">
+                        <input type="password" name="password" data-ng-model="signupData.password">
+                        <i class="lock icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="required field">
+                    <label>Email</label>
+                    <div class="ui icon input">
+                        <input type="text" placeholder="Adresse mail" name="mail" data-ng-model="signupData.mail">
+                        <i class="mail icon"></i>
+                    </div>
+                </div>
+                <div class="required field {{confirm}}">
+                    <label>Confirmation du mot de passe</label>
+                    <div class="ui icon input">
+                        <input type="password" name="passwordtwo" data-ng-model="signupData.passwordtwo">
+                        <i class="lock icon"></i>
+                    </div>
+                </div>
+            </div>
+            <button class="ui {{submitButtonSignup}} button" type="submit">S'enregistrer</button>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(window).load(function() {
+        $('.ui.dropdown')
+                .dropdown()
+        ;
+        $('.message .close').on('click', function() {
+            $(this).closest('.message').fadeOut();
+        });
+        $('.ui.form.signup')
+                .form({
+                    pseudo: {
+                        identifier  : 'pseudo',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un pseudo'
+                            }
+                        ]
+                    },
+                    password: {
+                        identifier  : 'password',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un mot de passe'
+                            },
+                            {
+                                type   : 'length[6]',
+                                prompt : 'Le mot de passe doit faire 6 caractères minimum'
+                            }
+                        ]
+                    },
+                    mail: {
+                        identifier : 'mail',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez une adresse email'
+                            },
+                            {
+                                type   : 'email',
+                                prompt : 'L\'adresse email n\'est pas valide'
+                            }
+                        ]
+                    },
+                    passwordtwo: {
+                        identifier : 'passwordtwo',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Confirmez le mot de passe'
+                            },
+                            {
+                                type   : 'match[password]',
+                                prompt : 'Les mots de passe ne correspondent pas'
+                            }
+                        ]
+                    }
+                })
+        ;
+        $('.ui.form.login')
+                .form({
+                    pseudo: {
+                        identifier  : 'pseudo',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un pseudo'
+                            }
+                        ]
+                    },
+                    password: {
+                        identifier  : 'password',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un mot de passe'
+                            },
+                            {
+                                type   : 'length[6]',
+                                prompt : 'Le mot de passe doit faire 6 caractères minimum'
+                            }
+                        ]
+                    }
+                })
+        ;
+    });
+</script>
+</html>
