@@ -77,6 +77,10 @@ body  {
     display: inline;
     float: right;
 }
+.ui.icon.message {
+    /*padding-bottom: 10px;
+    padding-top: 10px;*/
+}
 .sign.out:hover {
     color: #ac1300;
 }
@@ -85,4 +89,7 @@ body  {
 }
 .statcol {
     width: 33%;
+}
+.search {
+    margin-left: 7px;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="caen">
 <head>
     <title>Le Trappist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -12,7 +12,9 @@
     <script type="text/javascript" src="chimayBottle.js"></script>
 </head>
 <body>
-<div class="fullheight" data-ng-app="myApp" data-ng-controller="trappeBarrel">
+<div class="fullheight" id="scrollArea" data-ng-app="myApp" data-ng-controller="trappeBarrel">
+
+<!-- MENU -->
     <div class="ui left vertical inverted labeled icon sidebar menu visible">
         <a ng-class="carteclass" data-ng-click="gocarte()">
             <i class="book icon"></i>
@@ -27,18 +29,24 @@
             Compte
         </a>
     </div>
+
+<!-- LOG MSG -->
     <div class="currentstate" data-ng-show="userLoggedIn">
         <div class="ui icon message">
             <i class="sign out icon" data-ng-click="logout()"></i>
             <div class="content">
                 <div class="header">
-                    Hi {{userLogId}}!
+                    Bienvenue {{userLogId}}!
                 </div>
-                <p>You're sober. You only drank <b>{{nbbrew}}</b> beers.</p>
+                <p>Vous êtes {{sober}}.<br>Vous avez bu <b>{{nbbrew}}</b> bières.</p>
             </div>
         </div>
     </div>
+
+<!-- LOGO -->
     <div id="logo" data-ng-click="gocarte()"></div>
+
+<!-- CARTE PANEL -->
     <div class="main container" data-ng-show="carte">
         <h4 class="ui horizontal header divider">
             La Carte
@@ -57,8 +65,19 @@
             </div>
             <p>Identifié avec succés.</p>
         </div>
+        <div class="ui success message" data-ng-show="newbeerSuccess">
+            <i class="close icon"></i>
+            <div class="header">
+                Bravo!
+            </div>
+            <p>Nouvelle bière ajoutée avec succés.</p>
+        </div>
         <div class="ui one cards">
-            <div class="{{beer.selected}} card" data-ng-repeat="beer in beers">
+            <div class="ui transparent left icon input search">
+                <input type="text" placeholder="Search..." data-ng-model="search">
+                <i class="search icon"></i>
+            </div>
+            <div class="{{beer.selected}} card" data-ng-repeat="beer in beers | filter:search">
                 <div class="content">
                     <div class="header"><i class="{{beer.Pays}} flag beercountry" data-ng-click="reverse=!reverse;order('Pays', reverse)"></i> <span class="beername" data-ng-click="reverse=!reverse;order('Nom', reverse)">{{beer.Nom}}</span>
                         <span data-ng-show="userLoggedIn">
@@ -107,97 +126,108 @@
             </div>
         </div>
     </div>
+
+<!-- ADD BEER PANEL -->
     <div class="main container" data-ng-show="newbeer">
         <h4 class="ui horizontal header divider">
             Ajouter une nouvelle bière
         </h4>
-
-        <form class="ui form">
-            <div class="two fields">
+        <form class="ui form newbeer" ng-submit="submitNewbeer(newbeerform)" name="newbeerform" method="post" action="">
+            <div class="field">
+                <label>Nom</label>
                 <div class="field">
-                    <label>Nom</label>
-
-                    <div class="field">
-                        <input type="text" name="first-name" placeholder="Nom de la bière">
-                    </div>
-                </div>
-                <div class="field">
-                    <label>Type</label>
-
-                    <div class="ui selection dropdown">
-                        <input type="hidden" name="type">
-
-                        <div class="default text">Type</div>
-                        <i class="dropdown icon"></i>
-
-                        <div class="menu">
-                            <div class="item" data-value="Stout">Stout</div>
-                            <div class="item" data-value="Lager">Lager</div>
-                        </div>
-                    </div>
+                    <input type="text" name="nom" placeholder="Nom de la bière" data-ng-model="newbeerData.nom">
                 </div>
             </div>
-            <div class="three fields">
+            <div class="two fields">
+                <div class="field">
+                    <label>Type</label>
+                    <select class="ui dropdown" name="type" data-ng-model="newbeerData.type">
+                        <option value="">Type</option>
+                        <option value="{{type.Id}}" data-ng-repeat="type in beertype">{{type.Nom}}</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Origine</label>
+                    <select class="ui dropdown" name="pays" data-ng-model="newbeerData.pays">
+                        <option value="">Pays</option>
+                        <option value="{{pays.Id}}" data-ng-repeat="pays in beerpays">{{pays.Nom}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="two fields">
                 <div class="field">
                     <label>Alcool</label>
-
                     <div class="field">
-                        <input type="text" name="first-name" placeholder="Degré d'alcool">
+                        <input type="number" name="alcool" step="0.1" min="0" max="100" placeholder="Degré d'alcool" data-ng-model="newbeerData.alcool">
                     </div>
                 </div>
                 <div class="field">
                     <label>Robe</label>
-
-                    <div class="ui selection dropdown">
-                        <input type="hidden" name="robe">
-
-                        <div class="default text">Robe</div>
-                        <i class="dropdown icon"></i>
-
-                        <div class="menu">
-                            <div class="item" data-value="Brune">Brune</div>
-                            <div class="item" data-value="Rubi">Rubi</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <label>Origine</label>
-
-                    <div class="ui selection dropdown">
-                        <input type="hidden" name="pays">
-
-                        <div class="default text">Pays</div>
-                        <i class="dropdown icon"></i>
-
-                        <div class="menu">
-                            <div class="item" data-value="Belgique">Belgique</div>
-                            <div class="item" data-value="Allemagne">Allemagne</div>
-                        </div>
-                    </div>
+                    <select class="ui dropdown" name="robe" data-ng-model="newbeerData.robe">
+                        <option value="">Robe</option>
+                        <option value="{{robe.Id}}" data-ng-repeat="robe in beerrobe">{{robe.Nom}}</option>
+                    </select>
                 </div>
             </div>
             <div class="two fields">
                 <div class="field">
                     <label>Tarif</label>
-
                     <div class="field">
                         <div class="ui icon input">
-                            <input type="text" name="prix" placeholder="Prix apéro belge">
+                            <input type="number" name="prix" step="0.1" min="0" max="500" placeholder="Prix apéro belge" data-ng-model="newbeerData.prix">
                             <i class="euro icon"></i>
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <label>Conditionnement</label>
-
+                    <select class="ui dropdown" name="cdmt" data-ng-model="newbeerData.cdmt">
+                        <option value="">Type</option>
+                        <option value="{{cdmt.Id}}" data-ng-repeat="cdmt in beercdmt">{{cdmt.Nom}} cl</option>
+                    </select>
+                </div>
+            </div>
+            <div class="four fields">
+                <div class="field">
+                    <label>RateBeer</label>
                     <div class="field">
-                        <input type="text" name="cdmt" placeholder="Conditionnement">
+                        <div class="ui icon input">
+                            <input type="number" min="0" max="100" name="RBnote" placeholder="Overall note" data-ng-model="newbeerData.RBnote">
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>&nbsp;</label>
+                    <div class="field">
+                        <div class="ui icon input">
+                            <input type="number" min="0" max="100" name="RBstyle" placeholder="Style note" data-ng-model="newbeerData.RBstyle">
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>BeerAdvocate</label>
+                    <div class="field">
+                        <div class="ui icon input">
+                            <input type="number" min="0" max="100" name="BAnote" placeholder="Global note" data-ng-model="newbeerData.BAnote">
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>&nbsp;</label>
+                    <div class="field">
+                        <div class="ui icon input">
+                            <input type="number" min="0" max="100" name="BAbro" placeholder="Bro note" data-ng-model="newbeerData.BAbro">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="ui submit green basic button">Ajouter</div>
+            <button class="ui {{submitButtonNewbeer}} button" type="submit">Ajouter</button>
+            <div class="ui error message"></div>
         </form>
     </div>
+
+<!-- USER PANEL -->
     <div class="main container" data-ng-show="stat">
         <h4 class="ui horizontal header divider">
             Utilisateur
@@ -231,7 +261,7 @@
                         </div>
                     </div>
                     <div class="ui vertical divider">
-                        Or
+                        Ou
                     </div>
                     <div class="center aligned column">
                         <div class="huge green ui labeled icon button" data-ng-click="gosignup()">
@@ -459,6 +489,109 @@
                             {
                                 type   : 'length[6]',
                                 prompt : 'Le mot de passe doit faire 6 caractères minimum'
+                            }
+                        ]
+                    }
+                })
+        ;
+        $('.ui.form.newbeer')
+                .form({
+                    nom: {
+                        identifier  : 'nom',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un nom de bière'
+                            }
+                        ]
+                    },
+                    type: {
+                        identifier  : 'type',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un type de bière'
+                            }
+                        ]
+                    },
+                    pays: {
+                        identifier  : 'pays',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un pays d\'origine'
+                            }
+                        ]
+                    },
+                    alcool: {
+                        identifier  : 'alcool',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un degré d\'alcool'
+                            }
+                        ]
+                    },
+                    robe: {
+                        identifier  : 'robe',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez une robe'
+                            }
+                        ]
+                    },
+                    prix: {
+                        identifier  : 'prix',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un tarif'
+                            }
+                        ]
+                    },
+                    cdmt: {
+                        identifier  : 'cdmt',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Entrez un type de bière'
+                            }
+                        ]
+                    },
+                    RBnote: {
+                        identifier  : 'RBnote',
+                        rules: [
+                            {
+                                type   : 'integer',
+                                prompt : 'Entrez un nombre en 0 et 100'
+                            }
+                        ]
+                    },
+                    RBstyle: {
+                        identifier  : 'RBstyle',
+                        rules: [
+                            {
+                                type   : 'integer',
+                                prompt : 'Entrez un nombre en 0 et 100'
+                            }
+                        ]
+                    },
+                    BAnote: {
+                        identifier  : 'BAnote',
+                        rules: [
+                            {
+                                type   : 'integer',
+                                prompt : 'Entrez un nombre en 0 et 100'
+                            }
+                        ]
+                    },
+                    BAbro: {
+                        identifier  : 'BAbro',
+                        rules: [
+                            {
+                                type   : 'integer',
+                                prompt : 'Entrez un nombre en 0 et 100'
                             }
                         ]
                     }
