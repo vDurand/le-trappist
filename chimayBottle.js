@@ -1,6 +1,20 @@
-var myApp = angular.module('myApp',[]);
+var myApp = angular.module('myApp',['vcRecaptcha']);
  
-myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$anchorScroll', function($scope,$http, $filter, $location, $anchorScroll) {
+myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$anchorScroll', function($scope,$http, $filter, $location, $anchorScroll, vcRecaptchaService) {
+
+    $scope.response = null;
+    $scope.widgetId = null;
+    $scope.model = {
+        key: '6LfeHgMTAAAAAGPfgnheFh9sG7z9__bKvNdOcshu'
+    };
+    $scope.setResponse = function (response) {
+        console.info('Response available');
+        $scope.response = response;
+    };
+    $scope.setWidgetId = function (widgetId) {
+        console.info('Created widget ID: %s', widgetId);
+        $scope.widgetId = widgetId;
+    };
 
     // Lets get drunk
 	$http.get("beer_keg.php")
@@ -47,7 +61,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                 console.log('logged out');
                 var index;
                 for (index = 0; index < $scope.beers.length+1; ++index) {
-                    $scope.beers[index].selected = "";
+                    //$scope.beers[index].selected = "";
                 }
                 $scope.nbbrew = 0;
                 $scope.ratebrew = 0;
@@ -139,13 +153,13 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
     $scope.sober = "sobre";
     $scope.checksober = function(){
         if($scope.nbbrew < 2){$scope.sober = "sobre";}
-        else if($scope.nbbrew < 5){$scope.sober = "euphorique";}
-        else if($scope.nbbrew < 11){$scope.sober = "légèrement éméché";}
-        else if($scope.nbbrew < 21){$scope.sober = "bien ivre";}
-        else if($scope.nbbrew < 41){$scope.sober = "complètement saoul";}
-        else if($scope.nbbrew < 61){$scope.sober = "ivre mort";}
-        else if($scope.nbbrew < 75){$scope.sober = "en coma éthylique";}
-        else if($scope.nbbrew == $scope.beers.length){$scope.sober = "mort";}
+        else if($scope.nbbrew < 5*$scope.beers.length/100){$scope.sober = "euphorique";}
+        else if($scope.nbbrew < 10*$scope.beers.length/100){$scope.sober = "légèrement éméché";}
+        else if($scope.nbbrew < 30*$scope.beers.length/100){$scope.sober = "bien ivre";}
+        else if($scope.nbbrew < 50*$scope.beers.length/100){$scope.sober = "complètement saoul";}
+        else if($scope.nbbrew < 75*$scope.beers.length/100){$scope.sober = "ivre mort";}
+        else if($scope.nbbrew < 100*$scope.beers.length/100){$scope.sober = "en coma éthylique";}
+        else if($scope.nbbrew = $scope.beers.length){$scope.sober = "mort";}
     };
 
 	// Menu stuff
@@ -215,6 +229,9 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
         if($scope.signupData.pseudo){
             if(signupform.$valid){
                 if($scope.drunkards.indexOf($scope.signupData.pseudo) == -1){
+                    console.log($scope.response);
+                    $scope.signupData.grecaptcharesponse = $scope.response;
+                    console.log($scope.signupData.grecaptcharesponse);
                     $scope.submitButtonSignup = "basic loading";
                     $http({
                         method  : 'POST',

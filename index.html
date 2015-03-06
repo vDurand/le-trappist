@@ -9,6 +9,8 @@
     <script src="jquery.min.js"></script>
     <script src="semantic.min.js"></script>
     <script type="text/javascript" src="angular.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded' async defer></script>
+    <script type="text/javascript" src="angular-recaptcha.min.js"></script>
     <script type="text/javascript" src="chimayBottle.js"></script>
 </head>
 <body>
@@ -20,7 +22,7 @@
             <i class="book icon"></i>
             Carte
         </a>
-        <a ng-class="newbeerclass" data-ng-click="gonewbeer()">
+        <a ng-class="newbeerclass" data-ng-click="gonewbeer()" data-ng-show="userLoggedIn">
             <i class="plus icon"></i>
             Ajouter
         </a>
@@ -402,7 +404,18 @@
                     </div>
                 </div>
             </div>
-            <button class="ui {{submitButtonSignup}} button" type="submit">S'enregistrer</button>
+            <div class="field">
+                <div
+                        vc-recaptcha
+                        theme="'light'"
+                        key="model.key"
+                        on-create="setWidgetId(widgetId)"
+                        on-success="setResponse(response)"
+                        ></div>
+            </div>
+            <div class="field">
+                <button class="ui {{submitButtonSignup}} button" type="submit">S'enregistrer</button>
+            </div>
             <div class="ui error message"></div>
         </form>
     </div>
@@ -416,6 +429,12 @@
         $('.message .close').on('click', function() {
             $(this).closest('.message').fadeOut();
         });
+        $('.sign.out.icon')
+                .popup({
+                    position : 'bottom center',
+                    content  : 'Déconnexion'
+                })
+        ;
         $('.ui.form.signup')
                 .form({
                     pseudo: {
@@ -558,7 +577,7 @@
                                 prompt : 'Entrez un type de bière'
                             }
                         ]
-                    },
+                    }/*,
                     RBnote: {
                         identifier  : 'RBnote',
                         rules: [
@@ -594,7 +613,7 @@
                                 prompt : 'Entrez un nombre en 0 et 100'
                             }
                         ]
-                    }
+                    }*/
                 })
         ;
     });

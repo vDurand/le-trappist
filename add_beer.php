@@ -8,8 +8,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-$conn = new mysqli("localhost", "Vlad", "pfudorr", "Trappist", 0, '/media/fd0b1/alx22/private/mysql/socket');
-$conn->query("SET NAMES 'utf8'");
+include('init.php');
 
 if (isset($_POST['nom']) && isset($_POST['type']) && isset($_POST['pays']) && isset($_POST['alcool']) && isset($_POST['robe']) && isset($_POST['prix']) && isset($_POST['cdmt'])) {
     if (empty($_POST['nom']) || empty($_POST['type']) || empty($_POST['pays']) || empty($_POST['alcool']) || empty($_POST['robe']) || empty($_POST['prix']) || empty($_POST['cdmt'])) {

@@ -10,8 +10,7 @@ session_start();
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-$conn = new mysqli("localhost", "Vlad", "pfudorr", "Trappist", 0, '/media/fd0b1/alx22/private/mysql/socket');
-$conn->query("SET NAMES 'utf8'");
+include('init.php');
 $idUser = $_SESSION["id"];
 $result = $conn->query("SELECT idBEER FROM DRINK WHERE idUSER = $idUser ORDER BY idBEER");
 

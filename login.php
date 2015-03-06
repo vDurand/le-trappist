@@ -46,8 +46,7 @@ function hash_equals($known_string, $user_string)
     return $ret === 0;
 }
 
-$conn = new mysqli("localhost", "Vlad", "pfudorr", "Trappist", 0, '/media/fd0b1/alx22/private/mysql/socket');
-$conn->query("SET NAMES 'utf8'");
+include('init.php');
 
 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
     if (empty($_POST['pseudo']) || empty($_POST['password'])) {

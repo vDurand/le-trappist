@@ -8,8 +8,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-$conn = new mysqli("localhost", "Vlad", "pfudorr", "Trappist", 0, '/media/fd0b1/alx22/private/mysql/socket');
-$conn->query("SET NAMES 'utf8'");
+include('init.php');
 $result = $conn->query("SELECT idTYPE, Type FROM TYPE ORDER BY Type");
 
 $outp = "[";

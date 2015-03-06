@@ -11,8 +11,7 @@ ini_set('display_errors', '1');
 session_set_cookie_params(0);
 session_start();
 
-$conn = new mysqli("localhost", "Vlad", "pfudorr", "Trappist", 0, '/media/fd0b1/alx22/private/mysql/socket');
-$conn->query("SET NAMES 'utf8'");
+include('init.php');
 
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
