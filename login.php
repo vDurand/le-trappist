@@ -58,7 +58,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
         $pseudo = $conn->real_escape_string($_POST['pseudo']);
         $password = $conn->real_escape_string($_POST['password']);
 
-        $result = $conn->query("SELECT idUSER, masta FROM USER WHERE Nick = '$pseudo' LIMIT 1");
+        $result = $conn->query("SELECT idUSER, masta, Grantee FROM USER WHERE Nick = '$pseudo' LIMIT 1");
 
         if(!$result){
             $data = array('success' => false, 'message' => 'Erreur d\'authentification');
@@ -71,6 +71,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
         if ( hash_equals($rs["masta"], crypt($password, $rs["masta"])) ) {
             $_SESSION["user"] = $pseudo;
             $_SESSION["id"] = $rs["idUSER"];
+            $_SESSION["grant"] = $rs["Grantee"];
             $data = array('success' => true, 'message' => 'Authentifié avec succés');
             echo json_encode($data);
 

@@ -28,7 +28,7 @@ if (isset($idBeer)) {
             $idUser = $_SESSION["id"];
             //$idBeer = $_POST['Id'];
 
-            $result = $conn->query("INSERT INTO DRINK VALUES ($idBeer, $idUser, NULL, NULL)");
+            $result = $conn->query("INSERT INTO DRINK VALUES ($idBeer, $idUser, 0, NULL)");
 
             if(!$result){
                 $data = array('success' => false, 'message' => 'Erreur lors du check');

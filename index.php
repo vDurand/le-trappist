@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html id="caen">
 <head>
+    <script src="pace.min.js"></script>
     <title>Le Trappist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="favicon.png" rel="shortcut icon"/>
@@ -22,20 +23,28 @@
             <i class="book icon"></i>
             Carte
         </a>
-        <a ng-class="newbeerclass" data-ng-click="gonewbeer()" data-ng-show="userLoggedIn">
+        <a ng-class="newbeerclass" data-ng-click="gonewbeer()" data-ng-show="gantt">
             <i class="plus icon"></i>
             Ajouter
         </a>
+        <a ng-class="communityclass" data-ng-click="gocommunity()">
+            <i class="users icon"></i>
+            Buveurs
+        </a>
         <a ng-class="statclass" data-ng-click="gostat()">
-            <i class="user icon"></i>
-            Compte
+            <i class="{{menuUser.icon}} icon"></i>
+            {{menuUser.text}}
+        </a>
+        <a class="item" data-ng-click="logout()" data-ng-show="userLoggedIn">
+            <i class="sign out icon"></i>
+            Logout
         </a>
     </div>
 
 <!-- LOG MSG -->
     <div class="currentstate" data-ng-show="userLoggedIn">
         <div class="ui icon message">
-            <i class="sign out icon" data-ng-click="logout()"></i>
+            <i class="trophy icon" onclick="javascript:rain()"></i>
             <div class="content">
                 <div class="header">
                     Bienvenue {{userLogId}}!
@@ -121,9 +130,11 @@
                             {{beer.BAbro}}
                         </div>
                     </div>
-                    <div class="price"><a class="ui tag label"
-                                          data-ng-click="reverse=!reverse;order('PrixBelge', reverse)">{{beer.PrixBelge}}
-                        €</a></div>
+                    <div class="price">
+                        <a class="ui tag label" data-ng-click="reverse=!reverse;order('PrixBelge', reverse)">
+                            {{beer.PrixBelge}} €</a>
+                    </div>
+                    <div class="ui heart rating" ng-show="beer.selected" data-rating="{{beer.note}}" data-max-rating="10"></div>
                 </div>
             </div>
         </div>
@@ -419,203 +430,9 @@
             <div class="ui error message"></div>
         </form>
     </div>
+    <div class="footer">
+        Copyleft <img src="cl.png" id="cl"> <?php echo date("Y"); ?>
+    </div>
 </div>
 </body>
-<script type="text/javascript">
-    $(window).load(function() {
-        $('.ui.dropdown')
-                .dropdown()
-        ;
-        $('.message .close').on('click', function() {
-            $(this).closest('.message').fadeOut();
-        });
-        $('.sign.out.icon')
-                .popup({
-                    position : 'bottom center',
-                    content  : 'Déconnexion'
-                })
-        ;
-        $('.ui.form.signup')
-                .form({
-                    pseudo: {
-                        identifier  : 'pseudo',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un pseudo'
-                            }
-                        ]
-                    },
-                    password: {
-                        identifier  : 'password',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un mot de passe'
-                            },
-                            {
-                                type   : 'length[6]',
-                                prompt : 'Le mot de passe doit faire 6 caractères minimum'
-                            }
-                        ]
-                    },
-                    mail: {
-                        identifier : 'mail',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez une adresse email'
-                            },
-                            {
-                                type   : 'email',
-                                prompt : 'L\'adresse email n\'est pas valide'
-                            }
-                        ]
-                    },
-                    passwordtwo: {
-                        identifier : 'passwordtwo',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Confirmez le mot de passe'
-                            },
-                            {
-                                type   : 'match[password]',
-                                prompt : 'Les mots de passe ne correspondent pas'
-                            }
-                        ]
-                    }
-                })
-        ;
-        $('.ui.form.login')
-                .form({
-                    pseudo: {
-                        identifier  : 'pseudo',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un pseudo'
-                            }
-                        ]
-                    },
-                    password: {
-                        identifier  : 'password',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un mot de passe'
-                            },
-                            {
-                                type   : 'length[6]',
-                                prompt : 'Le mot de passe doit faire 6 caractères minimum'
-                            }
-                        ]
-                    }
-                })
-        ;
-        $('.ui.form.newbeer')
-                .form({
-                    nom: {
-                        identifier  : 'nom',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un nom de bière'
-                            }
-                        ]
-                    },
-                    type: {
-                        identifier  : 'type',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un type de bière'
-                            }
-                        ]
-                    },
-                    pays: {
-                        identifier  : 'pays',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un pays d\'origine'
-                            }
-                        ]
-                    },
-                    alcool: {
-                        identifier  : 'alcool',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un degré d\'alcool'
-                            }
-                        ]
-                    },
-                    robe: {
-                        identifier  : 'robe',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez une robe'
-                            }
-                        ]
-                    },
-                    prix: {
-                        identifier  : 'prix',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un tarif'
-                            }
-                        ]
-                    },
-                    cdmt: {
-                        identifier  : 'cdmt',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Entrez un type de bière'
-                            }
-                        ]
-                    }/*,
-                    RBnote: {
-                        identifier  : 'RBnote',
-                        rules: [
-                            {
-                                type   : 'integer',
-                                prompt : 'Entrez un nombre en 0 et 100'
-                            }
-                        ]
-                    },
-                    RBstyle: {
-                        identifier  : 'RBstyle',
-                        rules: [
-                            {
-                                type   : 'integer',
-                                prompt : 'Entrez un nombre en 0 et 100'
-                            }
-                        ]
-                    },
-                    BAnote: {
-                        identifier  : 'BAnote',
-                        rules: [
-                            {
-                                type   : 'integer',
-                                prompt : 'Entrez un nombre en 0 et 100'
-                            }
-                        ]
-                    },
-                    BAbro: {
-                        identifier  : 'BAbro',
-                        rules: [
-                            {
-                                type   : 'integer',
-                                prompt : 'Entrez un nombre en 0 et 100'
-                            }
-                        ]
-                    }*/
-                })
-        ;
-    });
-</script>
 </html>

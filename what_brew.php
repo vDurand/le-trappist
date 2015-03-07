@@ -12,12 +12,13 @@ header("Content-Type: application/json; charset=UTF-8");
 
 include('init.php');
 $idUser = $_SESSION["id"];
-$result = $conn->query("SELECT idBEER FROM DRINK WHERE idUSER = $idUser ORDER BY idBEER");
+$result = $conn->query("SELECT idBEER, Note FROM DRINK WHERE idUSER = $idUser ORDER BY idBEER");
 
 $outp = "[";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     if ($outp != "[") {$outp .= ",";}
-    $outp .= '"'  . $rs["idBEER"] . '"';
+    $outp .= '{"Id":"'  . $rs["idBEER"] . '",';
+    $outp .= '"Note":"'. $rs["Note"]     . '"}';
 }
 $outp .="]";
 

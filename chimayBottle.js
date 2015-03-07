@@ -1,3 +1,160 @@
+$(window).load(function() {
+    $('.ui.dropdown')
+        .dropdown()
+    ;
+    $('.message .close').on('click', function() {
+        $(this).closest('.message').fadeOut();
+    });
+    $('.ui.heart.rating')
+        .rating('setting', 'clearable', true)
+    ;
+    $('.ui.form.signup')
+        .form({
+            pseudo: {
+                identifier  : 'pseudo',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un pseudo'
+                    }
+                ]
+            },
+            password: {
+                identifier  : 'password',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un mot de passe'
+                    },
+                    {
+                        type   : 'length[6]',
+                        prompt : 'Le mot de passe doit faire 6 caractères minimum'
+                    }
+                ]
+            },
+            mail: {
+                identifier : 'mail',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez une adresse email'
+                    },
+                    {
+                        type   : 'email',
+                        prompt : 'L\'adresse email n\'est pas valide'
+                    }
+                ]
+            },
+            passwordtwo: {
+                identifier : 'passwordtwo',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Confirmez le mot de passe'
+                    },
+                    {
+                        type   : 'match[password]',
+                        prompt : 'Les mots de passe ne correspondent pas'
+                    }
+                ]
+            }
+        })
+    ;
+    $('.ui.form.login')
+        .form({
+            pseudo: {
+                identifier  : 'pseudo',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un pseudo'
+                    }
+                ]
+            },
+            password: {
+                identifier  : 'password',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un mot de passe'
+                    },
+                    {
+                        type   : 'length[6]',
+                        prompt : 'Le mot de passe doit faire 6 caractères minimum'
+                    }
+                ]
+            }
+        })
+    ;
+    $('.ui.form.newbeer')
+        .form({
+            nom: {
+                identifier  : 'nom',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un nom de bière'
+                    }
+                ]
+            },
+            type: {
+                identifier  : 'type',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un type de bière'
+                    }
+                ]
+            },
+            pays: {
+                identifier  : 'pays',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un pays d\'origine'
+                    }
+                ]
+            },
+            alcool: {
+                identifier  : 'alcool',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un degré d\'alcool'
+                    }
+                ]
+            },
+            robe: {
+                identifier  : 'robe',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez une robe'
+                    }
+                ]
+            },
+            prix: {
+                identifier  : 'prix',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un tarif'
+                    }
+                ]
+            },
+            cdmt: {
+                identifier  : 'cdmt',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Entrez un type de bière'
+                    }
+                ]
+            }
+        })
+    ;
+});
+
 var myApp = angular.module('myApp',['vcRecaptcha']);
  
 myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$anchorScroll', function($scope,$http, $filter, $location, $anchorScroll, vcRecaptchaService) {
@@ -42,7 +199,9 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                 .success(function(data) {
                     if (data.success) {
                         $scope.userLoggedIn = true;
-                        $scope.userLogId = data.message;
+                        $scope.setMenu();
+                        $scope.gantt = data.message;
+                        $scope.userLogId = data.dial;
                         $scope.listAllChecked();
                         console.log('yes session');
                     }
@@ -58,34 +217,44 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
         $http.get("logout.php")
             .success(function(response) {
                 $scope.userLoggedIn = false;
+                $scope.setMenu();
                 console.log('logged out');
                 var index;
-                for (index = 0; index < $scope.beers.length+1; ++index) {
-                    //$scope.beers[index].selected = "";
+                for (index = 0; index < $scope.beers.length; ++index) {
+                    $scope.beers[index].selected = "";
                 }
                 $scope.nbbrew = 0;
                 $scope.ratebrew = 0;
                 $scope.submitButtonLogin = "blue";
+                $scope.gantt = 0;
             })
             .error(function (response){console.log('error logout');});
     };
 
     // List all the dead bottles
-    $scope.brew;
+    $scope.brew = [0, 0];
+    $scope.dataChecked;
     $scope.nbbrew = 0;
     $scope.ratebrew = 0;
     $scope.listAllChecked = function(){
         $http.get("what_brew.php")
             .success(function(response) {
-                $scope.brew = response;
+                $scope.dataChecked = response;
+                var index;
+                for(index = 0; index < $scope.dataChecked.length; index++){
+                    $scope.brew[index] = $scope.dataChecked[index].Id;
+                }
                 console.log('brew list ok');
                 $scope.nbbrew = 0;
                 $scope.ratebrew = 0;
                 var index;
                 var jndex;
                 for (index = 0; index < $scope.beers.length; index++) {
-                    if($scope.brew.indexOf($scope.beers[index].Id) != -1){
+                    $scope.beers[index].note = 0;
+                    var kndex = $scope.brew.indexOf($scope.beers[index].Id)
+                    if(kndex != -1){
                         $scope.beers[index].selected = "green";
+                        $scope.beers[index].note = $scope.dataChecked[kndex].Note;
                         $scope.nbbrew++;
                         console.log('one added');
                     }
@@ -169,6 +338,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 	$scope.newbeerclass = "item";
 	$scope.stat = false;
 	$scope.statclass = "item";
+    $scope.communityclass = "item";
 	$scope.signup = false;
 	$scope.gocarte = function(){
 		$scope.carte = true;
@@ -178,11 +348,13 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 		$scope.carteclass = "active item";
 		$scope.newbeerclass = "item";
 		$scope.statclass = "item";
+        $scope.communityclass = "item";
         $scope.signUpSuccess = false;
         $scope.loginSuccess = false;
         $scope.newbeerSuccess = false;
         $location.hash('caen');
         $anchorScroll();
+        $location.hash(null);
 	};
 	$scope.gonewbeer = function(){
 		$scope.carte = false;
@@ -192,8 +364,10 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 		$scope.carteclass = "item";
 		$scope.newbeerclass = "active item";
 		$scope.statclass = "item";
+        $scope.communityclass = "item";
         $location.hash('caen');
         $anchorScroll();
+        $location.hash(null);
 	};
 	$scope.gostat = function(){
 		$scope.carte = false;
@@ -203,10 +377,12 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 		$scope.carteclass = "item";
 		$scope.newbeerclass = "item";
 		$scope.statclass = "active item";
+        $scope.communityclass = "item";
         $scope.getrate();
         $location.hash('caen');
         $anchorScroll();
         $('#conso').progress({percent: $scope.ratebrew});
+        $location.hash(null);
 	};
 	$scope.gosignup = function(){
 		$scope.carte = false;
@@ -216,8 +392,10 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 		$scope.carteclass = "item";
 		$scope.newbeerclass = "item";
 		$scope.statclass = "active item";
+        $scope.communityclass = "item";
         $location.hash('caen');
         $anchorScroll();
+        $location.hash(null);
 	};
 
     // Register a drunkard
@@ -280,6 +458,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 
     // Login a drunkard
     $scope.loginData;
+    $scope.gantt = 0;
     $scope.submitButtonLogin = "blue";
     $scope.resultLoginMessage = "";
     $scope.loginSuccess = false;
@@ -299,6 +478,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                         if (data.success) { //success comes from the return json object
                             console.log("success");
                             $scope.submitButtonLogin = "blue";
+                            $scope.gantt = data.message;
                             $scope.resultLoginMessage = "";
                             $scope.result='msgsuccess';
                             $scope.loginData="";
@@ -306,6 +486,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                             $scope.signUpSuccess = false;
                             $scope.newbeerSuccess = false;
                             $scope.userLoggedIn = true;
+                            $scope.setMenu();
                             $scope.listAllChecked();
                             $scope.userLogId = tempseudo;
                             $scope.carte = true;
@@ -338,6 +519,17 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
         }
     };
 
+    $scope.menuUser = {"text" : "Login", "icon": "sign in"};
+    $scope.setMenu = function(){
+        if($scope.userLoggedIn){
+            $scope.menuUser.text = "Compte";
+            $scope.menuUser.icon = "dashboard";
+        }
+        else{
+            $scope.menuUser.text = "Login";
+            $scope.menuUser.icon = "sign in";
+        }
+    };
     // Add new beverage
     $scope.newbeerData;
     $scope.submitButtonNewbeer = "green basic";

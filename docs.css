@@ -3,6 +3,29 @@
              Global
 *******************************/
 
+.pace {
+    -webkit-pointer-events: none;
+    pointer-events: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.pace-inactive {
+    display: none;
+}
+
+.pace .pace-progress {
+    background: #49494a;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    right: 100%;
+    width: 100%;
+    height: 2px;
+}
+
 body  {
   background-color: #F7F7F7;
 }
@@ -46,7 +69,7 @@ body  {
 .header {
   padding-bottom: 5px;
 }
-.beername, .beercountry, .beeralcool, .beercdmt, .beertype, .drunk, .notdrunk, .sign.out {
+.beername, .beercountry, .beeralcool, .beercdmt, .beertype, .drunk, .notdrunk, .trophy {
     cursor: pointer;
 }
 .drunk {
@@ -77,12 +100,8 @@ body  {
     display: inline;
     float: right;
 }
-.ui.icon.message {
-    /*padding-bottom: 10px;
-    padding-top: 10px;*/
-}
-.sign.out:hover {
-    color: #ac1300;
+.trophy:hover {
+    color: #d48210;
 }
 .statable {
     width: 100%;
@@ -92,5 +111,23 @@ body  {
 }
 .search {
     margin-left: 7px;
-    margin-top: 3px;
+    margin-top: 5px;
+}
+.footer {
+    position: relative;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    height:25px;
+    width: 100%;
+    text-align: center;
+}
+#cl {
+    height: 10px;
+}
+.rating {
+    padding-right: 50px;
+    padding-top: 5px;
+    float: right;
 }

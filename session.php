@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 if (isset($_SESSION['user'])) {
-    $data = array('success' => true, 'message' => $_SESSION['user']);
+    $data = array('success' => true, 'message' => $_SESSION['grant'], 'dial' => $_SESSION['user']);
     echo json_encode($data);
 }
 else{
