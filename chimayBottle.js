@@ -1,13 +1,18 @@
+var rateNote = 0;
 $(window).load(function() {
+    /*$('.ui.heart.rating.front')
+        .rating('setting', 'clearable', true)
+    ;
+    $('.ui.heart.rating.front')
+        .rating('setting', 'onRate', function(value) {
+            rateNote = value;
+        });*/
     $('.ui.dropdown')
         .dropdown()
     ;
     $('.message .close').on('click', function() {
         $(this).closest('.message').fadeOut();
     });
-    $('.ui.heart.rating')
-        .rating('setting', 'clearable', true)
-    ;
     $('.ui.form.signup')
         .form({
             pseudo: {
@@ -158,7 +163,6 @@ $(window).load(function() {
 var myApp = angular.module('myApp',['vcRecaptcha']);
  
 myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$anchorScroll', function($scope,$http, $filter, $location, $anchorScroll, vcRecaptchaService) {
-
     $scope.response = null;
     $scope.widgetId = null;
     $scope.model = {
@@ -355,6 +359,9 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
         $location.hash('caen');
         $anchorScroll();
         $location.hash(null);
+        /*$('.ui.heart.rating.front')
+            .rating('disable')
+        ;*/
 	};
 	$scope.gonewbeer = function(){
 		$scope.carte = false;
@@ -383,6 +390,16 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
         $anchorScroll();
         $('#conso').progress({percent: $scope.ratebrew});
         $location.hash(null);
+        /*$('.ui.heart.rating.back')
+            .rating('disable')
+        ;*/
+        $('.ui.heart.rating.back')
+            .rating('setting', 'clearable', true)
+        ;
+        $('.ui.heart.rating.back')
+            .rating('setting', 'onRate', function(value) {
+                rateNote = value;
+            });
 	};
 	$scope.gosignup = function(){
 		$scope.carte = false;
@@ -588,5 +605,29 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
             }
         }
         else{console.log("not all good");}
+    };
+
+    // Personnal beer rating
+    $scope.rateabeer = function(beer){
+        if(beer.Id){
+            var dataRating = { "id" : beer.Id, "note" : rateNote};
+            $http({
+                method  : 'POST',
+                url     : 'rate_beer.php',
+                data    : $.param(dataRating),  //param method from jQuery
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  //set the headers so angular passing info as form data (not request payload)
+            }).success(function(data){
+                console.log(data.message);
+                if (data.success) { //success comes from the return json object
+                    console.log('success');
+                    beer.note = rateNote;
+                } else {
+                    console.log('fail');
+                }
+            })
+            .error(function (data){
+                console.log('error');
+            });
+        }
     };
 }]);

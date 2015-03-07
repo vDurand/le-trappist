@@ -62,6 +62,7 @@
         <h4 class="ui horizontal header divider">
             La Carte
         </h4>
+        <!-- SUCCESS MSG -->
         <div class="ui success message" data-ng-show="signUpSuccess">
             <i class="close icon"></i>
             <div class="header">
@@ -83,6 +84,7 @@
             </div>
             <p>Nouvelle bière ajoutée avec succés.</p>
         </div>
+        <!-- BEER CARDS -->
         <div class="ui one cards">
             <div class="ui transparent left icon input search">
                 <input type="text" placeholder="Search..." data-ng-model="search">
@@ -134,7 +136,7 @@
                         <a class="ui tag label" data-ng-click="reverse=!reverse;order('PrixBelge', reverse)">
                             {{beer.PrixBelge}} €</a>
                     </div>
-                    <div class="ui heart rating" ng-show="beer.selected" data-rating="{{beer.note}}" data-max-rating="10"></div>
+                    <div class="ui heart rating front" ng-show="beer.selected" data-rating="{{beer.note}}" data-ng-click="rateabeer(beer)" data-max-rating="10"></div>
                 </div>
             </div>
         </div>
@@ -368,7 +370,9 @@
                         </div>
                         <div class="price"><a class="ui tag label"
                                               data-ng-click="reverse=!reverse;order('PrixBelge', reverse)">{{beer.PrixBelge}}
-                            €</a></div>
+                            €</a>
+                        </div>
+                        <div class="ui heart rating back" ng-show="beer.selected" data-rating="{{beer.note}}" data-ng-click="rateabeer(beer)" data-max-rating="10"></div>
                     </div>
                 </div>
             </div>
