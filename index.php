@@ -413,19 +413,19 @@
                     </div>
                 </div>
                 <div class="required field">
-                    <label>Mot de passe</label>
+                    <label>Email</label>
                     <div class="ui icon input">
-                        <input type="password" name="password" data-ng-model="signupData.password">
-                        <i class="lock icon"></i>
+                        <input type="text" placeholder="Adresse mail" name="mail" data-ng-model="signupData.mail">
+                        <i class="mail icon"></i>
                     </div>
                 </div>
             </div>
             <div class="two fields">
                 <div class="required field">
-                    <label>Email</label>
+                    <label>Mot de passe</label>
                     <div class="ui icon input">
-                        <input type="text" placeholder="Adresse mail" name="mail" data-ng-model="signupData.mail">
-                        <i class="mail icon"></i>
+                        <input type="password" name="password" data-ng-model="signupData.password">
+                        <i class="lock icon"></i>
                     </div>
                 </div>
                 <div class="required field {{confirm}}">

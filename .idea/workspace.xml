@@ -26,7 +26,7 @@
       <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="255" column="57" selection-start="12173" selection-end="12173" vertical-scroll-proportion="0.6498195" vertical-offset="3465" max-vertical-offset="6975">
+            <state line="420" column="22" selection-start="21097" selection-end="21097" vertical-scroll-proportion="0.5685921" vertical-offset="5985" max-vertical-offset="6975">
               <folding />
             </state>
           </provider>
@@ -44,7 +44,7 @@
       <file leaf-file-name="chimayBottle.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chimayBottle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="185" column="30" selection-start="5534" selection-end="5534" vertical-scroll-proportion="0.0" vertical-offset="9322" max-vertical-offset="9900">
+            <state line="235" column="33" selection-start="7529" selection-end="7529" vertical-scroll-proportion="0.0" vertical-offset="3217" max-vertical-offset="9915">
               <folding />
             </state>
           </provider>
@@ -92,8 +92,8 @@
         <option value="$PROJECT_DIR$/semantic.js" />
         <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/docs.css" />
-        <option value="$PROJECT_DIR$/chimayBottle.js" />
         <option value="$PROJECT_DIR$/user_list.php" />
+        <option value="$PROJECT_DIR$/chimayBottle.js" />
         <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
@@ -548,13 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chimayBottle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="185" column="30" selection-start="5534" selection-end="5534" vertical-scroll-proportion="0.0" vertical-offset="9322" max-vertical-offset="9900">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user_list.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="43" selection-start="272" selection-end="272" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="465">
@@ -564,9 +557,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chimayBottle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="235" column="33" selection-start="7529" selection-end="7529" vertical-scroll-proportion="0.0" vertical-offset="3217" max-vertical-offset="9915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="255" column="57" selection-start="12173" selection-end="12173" vertical-scroll-proportion="0.6498195" vertical-offset="3465" max-vertical-offset="6975">
+        <state line="420" column="22" selection-start="21097" selection-end="21097" vertical-scroll-proportion="0.5685921" vertical-offset="5985" max-vertical-offset="6975">
           <folding />
         </state>
       </provider>

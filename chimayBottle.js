@@ -233,6 +233,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                 $scope.ratebrew = 0;
                 $scope.submitButtonLogin = "blue";
                 $scope.gantt = 0;
+                $scope.gocarte();
             })
             .error(function (response){console.log('error logout');});
     };
