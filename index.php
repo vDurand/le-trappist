@@ -23,11 +23,11 @@
             <i class="book icon"></i>
             Carte
         </a>
-        <a ng-class="newbeerclass" data-ng-click="gonewbeer()" data-ng-show="gantt">
+        <a ng-class="newbeerclass" data-ng-click="gonewbeer()" data-ng-show="gantt==1">
             <i class="plus icon"></i>
             Ajouter
         </a>
-        <a ng-class="communityclass" data-ng-click="gocommunity()">
+        <a ng-class="communityclass" data-ng-click="gocommunity()" data-ng-show="userLoggedIn">
             <i class="users icon"></i>
             Buveurs
         </a>
@@ -242,6 +242,23 @@
         </form>
     </div>
 
+<!-- COMMUNITY PANEL -->
+<div class="main container" data-ng-show="community">
+    <h4 class="ui horizontal header divider">
+        User List
+    </h4>
+    <div class="ui five cards">
+        <div class="card" data-ng-repeat="user in users">
+            <div class="image">
+                <img src="images/{{user.Avatar}}" id="avatar">
+            </div>
+            <div class="content">
+                <a class="header" data-ng-click="seeDetail(user)">{{user.Nom}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- USER PANEL -->
     <div class="main container" data-ng-show="stat">
         <h4 class="ui horizontal header divider">
@@ -271,7 +288,7 @@
                                         <i class="lock icon"></i>
                                     </div>
                                 </div>
-                                <button class="ui {{submitButtonLogin}} button" type="submit">S'authentifier</button>
+                                <input type="submit" id="submit" value="S'authentifier" class="ui {{submitButtonLogin}} button"/>
                             </form>
                         </div>
                     </div>
@@ -429,7 +446,7 @@
                         ></div>
             </div>
             <div class="field">
-                <button class="ui {{submitButtonSignup}} button" type="submit">S'enregistrer</button>
+                <input type="submit" id="submit" value="S'enregistrer" class="ui {{submitButtonSignup}} button"/>
             </div>
             <div class="ui error message"></div>
         </form>

@@ -178,10 +178,12 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
     };
 
     // Lets get drunk
+    $scope.users;
 	$http.get("beer_keg.php")
 	.success(function(response) {
             $scope.beers = response;
             console.log('got gulden draak!');
+            $scope.getUsers();
 
             // List all the drunkards
             $http.get("drunkard_list.php")
@@ -342,6 +344,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 	$scope.newbeerclass = "item";
 	$scope.stat = false;
 	$scope.statclass = "item";
+    $scope.community = false;
     $scope.communityclass = "item";
 	$scope.signup = false;
 	$scope.gocarte = function(){
@@ -349,6 +352,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 		$scope.newbeer = false;
 		$scope.stat = false;
 		$scope.signup = false;
+        $scope.community = false;
 		$scope.carteclass = "active item";
 		$scope.newbeerclass = "item";
 		$scope.statclass = "item";
@@ -359,15 +363,13 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
         $location.hash('caen');
         $anchorScroll();
         $location.hash(null);
-        /*$('.ui.heart.rating.front')
-            .rating('disable')
-        ;*/
 	};
 	$scope.gonewbeer = function(){
 		$scope.carte = false;
 		$scope.newbeer = true;
 		$scope.stat = false;
 		$scope.signup = false;
+        $scope.community = false;
 		$scope.carteclass = "item";
 		$scope.newbeerclass = "active item";
 		$scope.statclass = "item";
@@ -381,6 +383,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 		$scope.newbeer = false;
 		$scope.stat = true;
 		$scope.signup = false;
+        $scope.community = false;
 		$scope.carteclass = "item";
 		$scope.newbeerclass = "item";
 		$scope.statclass = "active item";
@@ -390,9 +393,6 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
         $anchorScroll();
         $('#conso').progress({percent: $scope.ratebrew});
         $location.hash(null);
-        /*$('.ui.heart.rating.back')
-            .rating('disable')
-        ;*/
         $('.ui.heart.rating.back')
             .rating('setting', 'clearable', true)
         ;
@@ -406,6 +406,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
 		$scope.newbeer = false;
 		$scope.stat = false;
 		$scope.signup = true;
+        $scope.community = false;
 		$scope.carteclass = "item";
 		$scope.newbeerclass = "item";
 		$scope.statclass = "active item";
@@ -414,6 +415,21 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
         $anchorScroll();
         $location.hash(null);
 	};
+    $scope.gocommunity = function(){
+        $scope.getUsers();
+        $scope.carte = false;
+        $scope.newbeer = false;
+        $scope.stat = false;
+        $scope.signup = false;
+        $scope.community = true;
+        $scope.carteclass = "item";
+        $scope.newbeerclass = "item";
+        $scope.statclass = "item";
+        $scope.communityclass = "caen item";
+        $location.hash('caen');
+        $anchorScroll();
+        $location.hash(null);
+    };
 
     // Register a drunkard
     $scope.signupData;
@@ -629,5 +645,11 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                 console.log('error');
             });
         }
+    };
+
+    // User list
+    $scope.getUsers = function(){
+        $http.get("user_list.php")
+            .success(function(response) {$scope.users = response; console.log('suc');});
     };
 }]);
