@@ -53,7 +53,7 @@ if (isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['password']
             // Hash the password with the salt
             $hash = crypt($password, $salt);
 
-            $result = $conn->query("INSERT INTO USER VALUES (NULL, '$pseudo', '$hash', '$mail', 0)");
+            $result = $conn->query("INSERT INTO USER VALUES (NULL, '$pseudo', '$hash', '$mail', 0, 'default.jpg')");
 
             if(!$result){
                 $data = array('success' => false, 'message' => 'Erreur lors de lajout');

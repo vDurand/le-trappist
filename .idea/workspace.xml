@@ -26,16 +26,7 @@
       <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="420" column="22" selection-start="21097" selection-end="21097" vertical-scroll-proportion="0.5685921" vertical-offset="5985" max-vertical-offset="6975">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".htaccess" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.htaccess">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="150">
+            <state line="240" column="12" selection-start="11696" selection-end="11696" vertical-scroll-proportion="0.58064514" vertical-offset="3330" max-vertical-offset="7050">
               <folding />
             </state>
           </provider>
@@ -44,7 +35,7 @@
       <file leaf-file-name="chimayBottle.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chimayBottle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="235" column="33" selection-start="7529" selection-end="7529" vertical-scroll-proportion="0.0" vertical-offset="3217" max-vertical-offset="9915">
+            <state line="588" column="42" selection-start="21680" selection-end="21680" vertical-scroll-proportion="-6.16" vertical-offset="8666" max-vertical-offset="10170">
               <folding />
             </state>
           </provider>
@@ -81,7 +72,6 @@
         <option value="$PROJECT_DIR$/beer_cdmt.php" />
         <option value="$PROJECT_DIR$/add_beer.php" />
         <option value="$PROJECT_DIR$/uncheck_beverage.php" />
-        <option value="$PROJECT_DIR$/user_signup.php" />
         <option value="$PROJECT_DIR$/beer_pays.php" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/session.php" />
@@ -93,6 +83,7 @@
         <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/docs.css" />
         <option value="$PROJECT_DIR$/user_list.php" />
+        <option value="$PROJECT_DIR$/user_signup.php" />
         <option value="$PROJECT_DIR$/chimayBottle.js" />
         <option value="$PROJECT_DIR$/index.php" />
       </list>
@@ -211,7 +202,7 @@
     <frame x="0" y="23" width="1280" height="731" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14448053" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14448053" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -222,15 +213,15 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29435483" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2983871" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -462,27 +453,14 @@
         <state line="7" column="0" selection-start="108" selection-end="2030" vertical-scroll-proportion="0.22580644" vertical-offset="0" max-vertical-offset="855" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user_signup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="97" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.3204301" vertical-offset="301" max-vertical-offset="1215" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/what_brew.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="108" selection-end="154" vertical-scroll-proportion="0.18518518" vertical-offset="0" max-vertical-offset="567">
-          <folding>
-            <marker date="1425674421000" expanded="true" signature="-1:-1" placeholder="SELECT idBEE..DRINK..." />
-          </folding>
-        </state>
+        <state line="7" column="0" selection-start="108" selection-end="154" vertical-scroll-proportion="0.18518518" vertical-offset="0" max-vertical-offset="567" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rate_beer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="16" selection-start="154" selection-end="154" vertical-scroll-proportion="0.0" vertical-offset="183" max-vertical-offset="750">
-          <folding>
-            <marker date="1425747480000" expanded="true" signature="-1:-1" placeholder="UPDATE DRINK..." />
-          </folding>
-        </state>
+        <state line="8" column="16" selection-start="154" selection-end="154" vertical-scroll-proportion="0.0" vertical-offset="183" max-vertical-offset="750" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/angular-recaptcha.min.js">
@@ -497,41 +475,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/semantic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8598" column="57" selection-start="269182" selection-end="269211" vertical-scroll-proportion="0.44809687" vertical-offset="128711" max-vertical-offset="280110">
-          <folding />
-        </state>
+        <state line="8598" column="57" selection-start="269182" selection-end="269211" vertical-scroll-proportion="0.44809687" vertical-offset="128711" max-vertical-offset="280110" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/session.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="95" selection-start="340" selection-end="340" vertical-scroll-proportion="0.4585153" vertical-offset="0" max-vertical-offset="458">
-          <folding />
-        </state>
+        <state line="14" column="95" selection-start="340" selection-end="340" vertical-scroll-proportion="0.4585153" vertical-offset="0" max-vertical-offset="458" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="70" selection-start="2979" selection-end="2979" vertical-scroll-proportion="-38.75" vertical-offset="180" max-vertical-offset="1470">
-          <folding>
-            <marker date="1426441677000" expanded="true" signature="-1:-1" placeholder="SELECT idUSE..USER..." />
-          </folding>
-        </state>
+        <state line="74" column="70" selection-start="2979" selection-end="2979" vertical-scroll-proportion="-38.75" vertical-offset="180" max-vertical-offset="1470" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/drunkard_list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="2" selection-start="108" selection-end="481" vertical-scroll-proportion="0.6084656" vertical-offset="0" max-vertical-offset="567">
-          <folding />
-        </state>
+        <state line="23" column="2" selection-start="108" selection-end="481" vertical-scroll-proportion="0.6084656" vertical-offset="0" max-vertical-offset="567" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/beer_keg.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="49" selection-start="624" selection-end="1295" vertical-scroll-proportion="0.69133574" vertical-offset="112" max-vertical-offset="690">
-          <folding>
-            <marker date="1425645265000" expanded="true" signature="-1:-1" placeholder="SELECT idBEE..BEER..." />
-          </folding>
-        </state>
+        <state line="33" column="49" selection-start="624" selection-end="1295" vertical-scroll-proportion="0.69133574" vertical-offset="112" max-vertical-offset="690" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/docs.css">
@@ -548,6 +512,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/user_signup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="111" selection-start="2415" selection-end="2415" vertical-scroll-proportion="0.22580644" vertical-offset="720" max-vertical-offset="1215">
+          <folding>
+            <marker date="1426451767000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/user_list.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="43" selection-start="272" selection-end="272" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="465">
@@ -559,14 +532,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chimayBottle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="235" column="33" selection-start="7529" selection-end="7529" vertical-scroll-proportion="0.0" vertical-offset="3217" max-vertical-offset="9915">
+        <state line="588" column="42" selection-start="21680" selection-end="21680" vertical-scroll-proportion="-6.16" vertical-offset="8666" max-vertical-offset="10170">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="420" column="22" selection-start="21097" selection-end="21097" vertical-scroll-proportion="0.5685921" vertical-offset="5985" max-vertical-offset="6975">
+        <state line="240" column="12" selection-start="11696" selection-end="11696" vertical-scroll-proportion="0.58064514" vertical-offset="3330" max-vertical-offset="7050">
           <folding />
         </state>
       </provider>

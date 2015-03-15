@@ -237,7 +237,8 @@
                     </div>
                 </div>
             </div>
-            <button class="ui {{submitButtonNewbeer}} button" type="submit">Ajouter</button>
+            <input data-ng-show="!loading" type="submit" id="submit" value="Ajouter" class="ui {{submitButtonNewbeer}} button"/>
+            <div data-ng-show="loading" class="ui basic loading button">Ajouter</div>
             <div class="ui error message"></div>
         </form>
     </div>
@@ -288,7 +289,8 @@
                                         <i class="lock icon"></i>
                                     </div>
                                 </div>
-                                <input type="submit" id="submit" value="S'authentifier" class="ui {{submitButtonLogin}} button"/>
+                                <input  data-ng-show="!loading" type="submit" id="submit" value="S'authentifier" class="ui {{submitButtonLogin}} button"/>
+                                <div data-ng-show="loading==true" class="ui primary loading button">S'authentifier</div>
                             </form>
                         </div>
                     </div>
@@ -445,8 +447,11 @@
                         on-success="setResponse(response)"
                         ></div>
             </div>
-            <div class="field">
+            <div class="field" data-ng-show="!loading">
                 <input type="submit" id="submit" value="S'enregistrer" class="ui {{submitButtonSignup}} button"/>
+            </div>
+            <div class="field" data-ng-show="loading">
+                <div class="ui basic loading button">S'enregistrer</div>
             </div>
             <div class="ui error message"></div>
         </form>

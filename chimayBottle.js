@@ -162,7 +162,7 @@ $(window).load(function() {
 
 var myApp = angular.module('myApp',['vcRecaptcha']);
  
-myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$anchorScroll', function($scope,$http, $filter, $location, $anchorScroll, vcRecaptchaService) {
+myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$anchorScroll', 'vcRecaptchaService', function($scope,$http, $filter, $location, $anchorScroll, vcRecaptchaService) {
     $scope.response = null;
     $scope.widgetId = null;
     $scope.model = {
@@ -437,6 +437,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
     $scope.submitButtonSignup = "green basic";
     $scope.resultSignupMessage = "";
     $scope.signUpSuccess = false;
+    $scope.loading = false;
     $scope.submitSignup = function(signupform){
         if($scope.signupData.pseudo){
             if(signupform.$valid){
@@ -444,7 +445,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                     console.log($scope.response);
                     $scope.signupData.grecaptcharesponse = $scope.response;
                     console.log($scope.signupData.grecaptcharesponse);
-                    $scope.submitButtonSignup = "basic loading";
+                    $scope.loading = true;
                     $http({
                         method  : 'POST',
                         url     : 'user_signup.php',
@@ -453,6 +454,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                     }).success(function(data){
                         console.log(data.message);
                         if (data.success) { //success comes from the return json object
+                            $scope.loading = false;
                             $scope.submitButtonSignup = "green";
                             $scope.resultSignupMessage = "";
                             $scope.result='msgsuccess';
@@ -469,9 +471,11 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                             $scope.newbeerclass = "item";
                             $scope.statclass = "item";
                         } else {
+                            $scope.loading = false;
                             $scope.submitButtonSignup = "red";
                             $scope.resultSignupMessage = data.message;
                             $scope.result='msgfail';
+                            vcRecaptchaService.reload($scope.widgetId);
                         }
                     })
                     .error(function (data){
@@ -479,12 +483,15 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                     });
                 }
                 else{
+                    $scope.loading = false;
                     $scope.submitButtonSignup = "red";
                     $scope.resultSignupMessage = "Pseudo déjà pris, désolé.";
                     console.log("already in use");
+                    vcRecaptchaService.reload($scope.widgetId);
                 }
             }
             else{
+                $scope.loading = false;
                 $scope.submitButtonSignup = "green basic";
             }
         }
@@ -496,12 +503,13 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
     $scope.submitButtonLogin = "blue";
     $scope.resultLoginMessage = "";
     $scope.loginSuccess = false;
+    $scope.loading = false;
     $scope.submitLogin = function(loginform){
         var tempseudo = $scope.loginData.pseudo;
         if($scope.loginData.pseudo){
             if(loginform.$valid){
                 if($scope.drunkards.indexOf($scope.loginData.pseudo) != -1){
-                    $scope.submitButtonLogin = "primary loading";
+                    $scope.loading = true;
                     $http({
                         method  : 'POST',
                         url     : 'login.php',
@@ -511,6 +519,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                         console.log(data.message);
                         if (data.success) { //success comes from the return json object
                             console.log("success");
+                            $scope.loading = false;
                             $scope.submitButtonLogin = "blue";
                             $scope.gantt = data.message;
                             $scope.resultLoginMessage = "";
@@ -531,6 +540,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                             $scope.newbeerclass = "item";
                             $scope.statclass = "item";
                         } else {
+                            $scope.loading = false;
                             console.log("fail");
                             $scope.submitButtonLogin = "red";
                             $scope.resultLoginMessage = data.message;
@@ -542,12 +552,14 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                         });
                 }
                 else{
+                    $scope.loading = false;
                     $scope.submitButtonLogin = "red";
                     $scope.resultLoginMessage = "Pseudo inexistant.";
                     console.log("dont exist");
                 }
             }
             else{
+                $scope.loading = false;
                 $scope.submitButtonLogin = "blue";
             }
         }
@@ -569,11 +581,12 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
     $scope.submitButtonNewbeer = "green basic";
     $scope.resultNewbeerMessage = "";
     $scope.newbeerSuccess = false;
+    $scope.loading = false;
     $scope.submitNewbeer = function(newbeerform){
         if($scope.newbeerData.nom && $scope.newbeerData.type && $scope.newbeerData.pays && $scope.newbeerData.alcool && $scope.newbeerData.robe && $scope.newbeerData.prix && $scope.newbeerData.cdmt){
             if(newbeerform.$valid){
                 if($scope.beers.indexOf($scope.newbeerData.nom) == -1){
-                    $scope.submitButtonNewbeer = "basic loading";
+                    $scope.loading = true;
                     $http({
                         method  : 'POST',
                         url     : 'add_beer.php',
@@ -582,6 +595,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                     }).success(function(data){
                         console.log(data.message);
                         if (data.success) { //success comes from the return json object
+                            $scope.loading = false;
                             $scope.submitButtonNewbeer = "green";
                             $scope.resultNewbeerMessage = "";
                             $scope.result='msgsuccess';
@@ -602,6 +616,7 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                                     console.log('relisted');
                                 });
                         } else {
+                            $scope.loading = false;
                             $scope.submitButtonNewbeer = "red";
                             $scope.resultNewbeerMessage = data.message;
                             $scope.result='msgfail';
@@ -612,12 +627,14 @@ myApp.controller('trappeBarrel', ['$scope','$http', '$filter', '$location', '$an
                         });
                 }
                 else{
+                    $scope.loading = false;
                     $scope.submitButtonNewbeer = "red";
                     $scope.resultNewbeerMessage = "Pseudo déjà pris, désolé.";
                     console.log("already in use");
                 }
             }
             else{
+                $scope.loading = false;
                 $scope.submitButtonNewbeer = "green basic";
             }
         }
