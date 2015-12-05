@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html id="caen">
 <head>
+    <script src="pace.min.js"></script>
     <title>Le Trappist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="favicon.png" rel="shortcut icon"/>
     <link rel="stylesheet" type="text/css" href="semantic.min.css">
     <link rel="stylesheet" type="text/css" href="docs.css">
-    <script src="pace.min.js"></script>
     <script src="jquery.min.js"></script>
     <script src="semantic.min.js"></script>
     <script type="text/javascript" src="angular.min.js"></script>
@@ -23,11 +23,11 @@
             <i class="book icon"></i>
             Carte
         </a>
-        <a ng-class="newbeerclass" data-ng-click="gonewbeer()" data-ng-show="gantt">
+        <a ng-class="newbeerclass" data-ng-click="gonewbeer()" data-ng-show="gantt==1">
             <i class="plus icon"></i>
             Ajouter
         </a>
-        <a ng-class="communityclass" data-ng-click="gocommunity()">
+        <a ng-class="communityclass" data-ng-click="gocommunity()" data-ng-show="userLoggedIn">
             <i class="users icon"></i>
             Buveurs
         </a>
@@ -237,10 +237,28 @@
                     </div>
                 </div>
             </div>
-            <button class="ui {{submitButtonNewbeer}} button" type="submit">Ajouter</button>
+            <input data-ng-show="!loading" type="submit" id="submit" value="Ajouter" class="ui {{submitButtonNewbeer}} button"/>
+            <div data-ng-show="loading" class="ui basic loading button">Ajouter</div>
             <div class="ui error message"></div>
         </form>
     </div>
+
+<!-- COMMUNITY PANEL -->
+<div class="main container" data-ng-show="community">
+    <h4 class="ui horizontal header divider">
+        User List
+    </h4>
+    <div class="ui five cards">
+        <div class="card" data-ng-repeat="user in users">
+            <div class="image">
+                <img src="images/{{user.Avatar}}" id="avatar">
+            </div>
+            <div class="content">
+                <a class="header" data-ng-click="seeDetail(user)">{{user.Nom}}</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- USER PANEL -->
     <div class="main container" data-ng-show="stat">
@@ -271,7 +289,8 @@
                                         <i class="lock icon"></i>
                                     </div>
                                 </div>
-                                <button class="ui {{submitButtonLogin}} button" type="submit">S'authentifier</button>
+                                <input  data-ng-show="!loading" type="submit" id="submit" value="S'authentifier" class="ui {{submitButtonLogin}} button"/>
+                                <div data-ng-show="loading==true" class="ui primary loading button">S'authentifier</div>
                             </form>
                         </div>
                     </div>
@@ -396,19 +415,19 @@
                     </div>
                 </div>
                 <div class="required field">
-                    <label>Mot de passe</label>
+                    <label>Email</label>
                     <div class="ui icon input">
-                        <input type="password" name="password" data-ng-model="signupData.password">
-                        <i class="lock icon"></i>
+                        <input type="text" placeholder="Adresse mail" name="mail" data-ng-model="signupData.mail">
+                        <i class="mail icon"></i>
                     </div>
                 </div>
             </div>
             <div class="two fields">
                 <div class="required field">
-                    <label>Email</label>
+                    <label>Mot de passe</label>
                     <div class="ui icon input">
-                        <input type="text" placeholder="Adresse mail" name="mail" data-ng-model="signupData.mail">
-                        <i class="mail icon"></i>
+                        <input type="password" name="password" data-ng-model="signupData.password">
+                        <i class="lock icon"></i>
                     </div>
                 </div>
                 <div class="required field {{confirm}}">
@@ -428,8 +447,11 @@
                         on-success="setResponse(response)"
                         ></div>
             </div>
-            <div class="field">
-                <button class="ui {{submitButtonSignup}} button" type="submit">S'enregistrer</button>
+            <div class="field" data-ng-show="!loading">
+                <input type="submit" id="submit" value="S'enregistrer" class="ui {{submitButtonSignup}} button"/>
+            </div>
+            <div class="field" data-ng-show="loading">
+                <div class="ui basic loading button">S'enregistrer</div>
             </div>
             <div class="ui error message"></div>
         </form>

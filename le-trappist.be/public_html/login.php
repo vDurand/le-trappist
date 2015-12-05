@@ -72,7 +72,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
             $_SESSION["user"] = $pseudo;
             $_SESSION["id"] = $rs["idUSER"];
             $_SESSION["grant"] = $rs["Grantee"];
-            $data = array('success' => true, 'message' => 'Authentifié avec succés');
+            $data = array('success' => true, 'message' => $rs["Grantee"]);
             echo json_encode($data);
 
         }
