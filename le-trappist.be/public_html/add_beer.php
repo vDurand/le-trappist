@@ -28,9 +28,10 @@ if (isset($_POST['nom']) && isset($_POST['type']) && isset($_POST['pays']) && is
         $rbstyle = 0; if(!empty($_POST['RBstyle'])){$rbstyle = $_POST['RBstyle'];}
         $banote = 0; if(!empty($_POST['BAnote'])){$banote = $_POST['BAnote'];}
         $babro = 0; if(!empty($_POST['BAbro'])){$babro = $_POST['BAbro'];}
+        $img = '0000.jpg';
 
 
-        $result = $conn->query("INSERT INTO BEER VALUES (NULL, '$nom', '$alcool', NULL, '$prix', $rbnote, $rbstyle, $banote, $babro, $type, $robe, $cdmt, $pays)");
+        $result = $conn->query("INSERT INTO BEER VALUES (NULL, '$nom', '$alcool', NULL, '$prix', $rbnote, $rbstyle, $banote, $babro, $type, $robe, $cdmt, $pays, '$img')");
 
         if(!$result){
             $data = array('success' => false, 'message' => 'Erreur lors de l\'ajout');

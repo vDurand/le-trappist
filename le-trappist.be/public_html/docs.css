@@ -131,5 +131,6 @@ body  {
     padding-top: 5px;
     float: right;
 }
-#avatar {
+.ui[class*="right ribbon"].label.roberibbon{
+  left: calc(100% - 7rem + 1.4em);
 }

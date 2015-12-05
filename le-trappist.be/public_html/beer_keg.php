@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 include('init.php');
-$result = $conn->query("SELECT idBEER, Nom, Alcool, PrixBelge, RBnote, RBstyle, BAnote, BAbro, Type, Robe, Conditionnement, Pays FROM BEER JOIN TYPE USING (idTYPE) JOIN ROBE USING (idROBE) JOIN CONDITIONNEMENT USING (idCDMT) JOIN PAYS USING (idPAYS) ORDER BY Nom");
+$result = $conn->query("SELECT idBEER, Nom, Alcool, PrixBelge, RBnote, RBstyle, BAnote, BAbro, Type, Robe, Conditionnement, Pays, Img FROM BEER JOIN TYPE USING (idTYPE) JOIN ROBE USING (idROBE) JOIN CONDITIONNEMENT USING (idCDMT) JOIN PAYS USING (idPAYS) ORDER BY Nom");
 
 $outp = "[";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -19,6 +19,9 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
 	else{
 		$BAnote = '0';
 	}
+	if(empty($rs["Img"])){
+		$rs["Img"] = '0000.jpg';
+	}
 	if ($outp != "[") {$outp .= ",";}
 	$outp .= '{"Id":"'  . $rs["idBEER"] . '",';
 	$outp .= '"Nom":"'   . $rs["Nom"]        . '",';
@@ -31,6 +34,7 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
 	$outp .= '"Type":"'   . $rs["Type"]        . '",';
 	$outp .= '"Robe":"'   . $rs["Robe"]        . '",';
 	$outp .= '"Conditionnement":"'   . $rs["Conditionnement"]        . '",';
+	$outp .= '"Img":"'   . $rs["Img"]        . '",';
 	$outp .= '"Pays":"'. $rs["Pays"]     . '"}'; 
 }
 $outp .="]";

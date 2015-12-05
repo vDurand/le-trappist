@@ -92,6 +92,7 @@
             </div>
             <div class="{{beer.selected}} card" data-ng-repeat="beer in beers | filter:search">
                 <div class="content">
+                    <img class="left floated mini ui image" src="images/{{beer.Img}}" width="100" height="100">
                     <div class="header"><i class="{{beer.Pays}} flag beercountry" data-ng-click="reverse=!reverse;order('Pays', reverse)"></i> <span class="beername" data-ng-click="reverse=!reverse;order('Nom', reverse)">{{beer.Nom}}</span>
                         <span data-ng-show="userLoggedIn">
                             <div class="drunk" ng-show="beer.selected" data-ng-click="select(beer)">
@@ -103,7 +104,7 @@
                             </div>
                         </span>
                     </div>
-                    <a class="ui black right ribbon label" data-ng-click="reverse=!reverse;order('Robe', reverse)"><i
+                    <a class="ui black right ribbon label roberibbon" data-ng-click="reverse=!reverse;order('Robe', reverse)"><i
                             class="theme icon"></i>{{beer.Robe}}</a>
 
                     <div class="description">
