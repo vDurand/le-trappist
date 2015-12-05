@@ -1,5 +1,0 @@
-Options -Indexes
-ErrorDocument 404 https://le-trappist.be/404
-RewriteEngine On
-RewriteCond %{HTTP:CF-Visitor} '"scheme":"http"'
-RewriteRule ^(.*)$ https://le-trappist.be/$1 [L]
