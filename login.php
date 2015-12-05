@@ -11,7 +11,7 @@ ini_set('display_errors', '1');
 session_set_cookie_params(0);
 session_start();
 
-function hash_equals($known_string, $user_string)
+/*function hash_equals($known_string, $user_string)
 {
     if (func_num_args() !== 2) {
         // handle wrong parameter count as the native implentation
@@ -44,7 +44,7 @@ function hash_equals($known_string, $user_string)
         $ret |= ord($res[$i]);
     }
     return $ret === 0;
-}
+}*/
 
 include('init.php');
 
@@ -72,7 +72,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
             $_SESSION["user"] = $pseudo;
             $_SESSION["id"] = $rs["idUSER"];
             $_SESSION["grant"] = $rs["Grantee"];
-            $data = array('success' => true, 'message' => $rs["Grantee"]);
+            $data = array('success' => true, 'message' => 'Authentifié avec succés');
             echo json_encode($data);
 
         }
